@@ -1,0 +1,13 @@
+# config.yml
+
+# The radius within which XP orbs will merge (in blocks)
+merge-radius: 2.0
+
+# Minimum XP amount required in an orb for it to be merged with others
+min-xp-to-merge: 5
+
+# How often (in seconds) the plugin checks and merges XP orbs in each world
+merge-interval-seconds: 10
+
+# The radius within which XP orbs will be instantly collected by players
+instant-collect-radius: 1.5

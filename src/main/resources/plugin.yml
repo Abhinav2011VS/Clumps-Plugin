@@ -1,0 +1,7 @@
+name: Clumps
+version: '1.0'
+main: net.abhinav.clumps.Clumps
+api-version: '1.21'
+load: STARTUP
+description: A plugin that merges XP orbs and instantly absorbs them when players are nearby to reduce lag.
+authors: [ Abhinav VS ]
