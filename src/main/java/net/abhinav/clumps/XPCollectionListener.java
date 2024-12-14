@@ -31,17 +31,19 @@ public class XPCollectionListener implements Listener {
 
         double instantCollectRadius = plugin.getInstantCollectRadius();
 
-        // Optimize entity lookup by filtering early
+        // Only collect XP if radius is set to something greater than zero
+        if (instantCollectRadius <= 0) return;
+
+        // Find nearby orbs
         List<ExperienceOrb> nearbyOrbs = world.getNearbyEntities(playerLocation, instantCollectRadius, instantCollectRadius, instantCollectRadius)
                 .stream()
-                .filter(e -> e instanceof ExperienceOrb)
-                .map(e -> (ExperienceOrb) e)
+                .filter(entity -> entity instanceof ExperienceOrb)
+                .map(entity -> (ExperienceOrb) entity)
                 .collect(Collectors.toList());
 
-        // Avoid creating new lists and reduce overhead
         for (ExperienceOrb orb : nearbyOrbs) {
-            player.giveExp(orb.getExperience()); // Instantly add XP to the player
-            orb.remove(); // Remove the orb to prevent it from floating
+            player.giveExp(orb.getExperience());  // Give player XP from the orb
+            orb.remove();  // Remove orb after collection
         }
     }
 }
