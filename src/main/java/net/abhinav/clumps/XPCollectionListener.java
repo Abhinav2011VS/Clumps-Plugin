@@ -28,13 +28,12 @@ public class XPCollectionListener implements Listener {
         Player player = event.getPlayer();
         World world = player.getWorld();
         Location playerLocation = player.getLocation();
-
         double instantCollectRadius = plugin.getInstantCollectRadius();
 
         // Only collect XP if radius is set to something greater than zero
         if (instantCollectRadius <= 0) return;
 
-        // Find nearby orbs
+        // Find nearby orbs and collect their XP
         List<ExperienceOrb> nearbyOrbs = world.getNearbyEntities(playerLocation, instantCollectRadius, instantCollectRadius, instantCollectRadius)
                 .stream()
                 .filter(entity -> entity instanceof ExperienceOrb)

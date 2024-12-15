@@ -1,7 +1,17 @@
 name: Clumps
-version: '2.1'
+version: '2.2'
 main: net.abhinav.clumps.Clumps
 api-version: '1.21'
 load: STARTUP
 description: A plugin that merges XP orbs and instantly absorbs them when players are nearby to reduce lag.
 authors: [ Abhinav VS ]
+commands:
+  clumps:
+    description: Modify Clumps plugin settings
+    usage: /<command> <set-<option>> <value>
+    permission: clumps.use
+    permission-message: "You don't have permission to use this command."
+permissions:
+  clumps.use:
+    description: Allows access to modify the Clumps plugin settings
+    default: op

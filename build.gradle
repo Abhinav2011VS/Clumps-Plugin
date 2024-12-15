@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'net.abhinav.clumps'
-version = '2.1'
+version = plugin_version
 
 repositories {
     mavenCentral()

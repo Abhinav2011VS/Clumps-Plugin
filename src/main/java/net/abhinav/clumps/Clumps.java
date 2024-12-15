@@ -22,6 +22,10 @@ public class Clumps extends JavaPlugin {
         saveDefaultConfig();
         loadConfigValues();
 
+        // Register the command and tab completer
+        getCommand("clumps").setExecutor(new Commands(this));
+        getCommand("clumps").setTabCompleter(new CommandsTabCompleter(this));
+
         // Register event listener for XP absorption if enabled
         if (enableInstantCollect) {
             new XPCollectionListener(this).register();
