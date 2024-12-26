@@ -43,6 +43,9 @@ public class XPCollectionListener implements Listener {
         for (ExperienceOrb orb : nearbyOrbs) {
             player.giveExp(orb.getExperience());  // Give player XP from the orb
             orb.remove();  // Remove orb after collection
+
+            // Log XP collection
+            plugin.getLoggerManager().log(player.getName() + " collected " + orb.getExperience() + " XP from nearby orb.");
         }
     }
 }

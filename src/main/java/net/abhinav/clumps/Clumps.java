@@ -16,8 +16,16 @@ public class Clumps extends JavaPlugin {
     private boolean enableMergeAnimations;
     private boolean preventOrbDuplication;
 
+    private LoggerManager loggerManager;  // Add logger manager
+
     @Override
     public void onEnable() {
+        // Initialize the logger with the plugin instance
+        loggerManager = new LoggerManager(this); // Pass 'this' to the LoggerManager
+
+        // Log the plugin startup
+        loggerManager.log("Clumps plugin enabled.");
+
         // Load configuration and register events
         saveDefaultConfig();
         loadConfigValues();
@@ -29,14 +37,16 @@ public class Clumps extends JavaPlugin {
         // Register event listener for XP absorption if enabled
         if (enableInstantCollect) {
             new XPCollectionListener(this).register();
+            loggerManager.log("XP instant collect enabled.");
         }
 
         // Schedule periodic merging task if enabled
         if (enableMerging) {
             new MergeTask(this).runTaskTimer(this, 0, mergeInterval * 20L);
+            loggerManager.log("XP merging task started.");
         }
 
-        getLogger().info("Clumps enabled with extended features.");
+        loggerManager.log("Clumps plugin started with the current configuration.");
     }
 
     private void loadConfigValues() {
@@ -51,6 +61,13 @@ public class Clumps extends JavaPlugin {
         enableXPBoost = config.getBoolean("enable-xp-boost", true);
         enableMergeAnimations = config.getBoolean("enable-merge-animations", true);
         preventOrbDuplication = config.getBoolean("prevent-orb-duplication", true);
+
+        // Log config values
+        loggerManager.log("Loaded config values: mergeRadius=" + mergeRadius + ", minXpToMerge=" + minXpToMerge +
+                ", mergeInterval=" + mergeInterval + ", enableInstantCollect=" + enableInstantCollect +
+                ", enableMerging=" + enableMerging + ", xpBoostMultiplier=" + xpBoostMultiplier +
+                ", enableXPBoost=" + enableXPBoost + ", enableMergeAnimations=" + enableMergeAnimations +
+                ", preventOrbDuplication=" + preventOrbDuplication);
     }
 
     public double getMergeRadius() {
@@ -87,6 +104,16 @@ public class Clumps extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        getLogger().info("Clumps has been disabled.");
+        // Log plugin disable
+        loggerManager.log("Clumps plugin has been disabled.");
+
+        if (loggerManager != null) {
+            loggerManager.close();  // Close the log writer
+        }
+    }
+
+    // Provide access to the logger for other classes
+    public LoggerManager getLoggerManager() {
+        return loggerManager;
     }
 }

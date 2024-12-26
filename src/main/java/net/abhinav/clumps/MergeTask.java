@@ -51,19 +51,12 @@ public class MergeTask extends BukkitRunnable {
 
                 orb.setExperience(totalXP);  // Update XP of the current orb
 
+                // Log XP merge
+                plugin.getLoggerManager().log("Merged XP from nearby orbs. Total XP: " + totalXP);
+
                 // Add merge animation effect if enabled
                 if (enableMergeAnimations) {
                     orb.getWorld().spawnParticle(Particle.END_ROD, orb.getLocation(), 10, 0.5, 0.5, 0.5, 0.1);
-                }
-
-                // Apply XP boost to nearby players
-                if (plugin.isEnableXPBoost()) {
-                    orb.getWorld().getNearbyEntities(orb.getLocation(), mergeRadius, mergeRadius, mergeRadius).stream()
-                            .filter(entity -> entity instanceof org.bukkit.entity.Player)
-                            .forEach(entity -> {
-                                org.bukkit.entity.Player player = (org.bukkit.entity.Player) entity;
-                                player.giveExp((int) (orb.getExperience() * plugin.getXpBoostMultiplier()));  // Apply XP boost
-                            });
                 }
             }
         }
