@@ -1,5 +1,5 @@
 name: Clumps
-version: '2.3'
+version: '2.5'
 main: net.abhinav.clumps.Clumps
 api-version: '1.21'
 load: STARTUP
