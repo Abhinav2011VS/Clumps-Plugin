@@ -51,9 +51,6 @@ public class MergeTask extends BukkitRunnable {
 
                 orb.setExperience(totalXP);  // Update XP of the current orb
 
-                // Log XP merge
-                plugin.getLoggerManager().log("Merged XP from nearby orbs. Total XP: " + totalXP);
-
                 // Add merge animation effect if enabled
                 if (enableMergeAnimations) {
                     orb.getWorld().spawnParticle(Particle.END_ROD, orb.getLocation(), 10, 0.5, 0.5, 0.5, 0.1);
