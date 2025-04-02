@@ -28,18 +28,22 @@ public class Commands implements CommandExecutor {
             return false;
         }
 
-        if (args.length < 2) {
-            player.sendMessage("Usage: /clumps <set-<option>> <value>");
+        if (args.length < 1) {
+            player.sendMessage("Usage: /clumps <command>");
             return false;
         }
 
         String option = args[0].toLowerCase();
-        String value = args[1];
 
         switch (option) {
+            case "showconfig":
+                showConfig(player);
+                break;
+
             case "set-merge-radius":
+                if (args.length < 2) return false;
                 try {
-                    double mergeRadius = Double.parseDouble(value);
+                    double mergeRadius = Double.parseDouble(args[1]);
                     plugin.getConfig().set("merge-radius", mergeRadius);
                     plugin.saveConfig();
                     player.sendMessage("Merge radius set to " + mergeRadius);
@@ -49,8 +53,9 @@ public class Commands implements CommandExecutor {
                 break;
 
             case "set-min-xp-to-merge":
+                if (args.length < 2) return false;
                 try {
-                    int minXpToMerge = Integer.parseInt(value);
+                    int minXpToMerge = Integer.parseInt(args[1]);
                     plugin.getConfig().set("min-xp-to-merge", minXpToMerge);
                     plugin.saveConfig();
                     player.sendMessage("Minimum XP to merge set to " + minXpToMerge);
@@ -60,8 +65,9 @@ public class Commands implements CommandExecutor {
                 break;
 
             case "set-merge-interval":
+                if (args.length < 2) return false;
                 try {
-                    int mergeInterval = Integer.parseInt(value);
+                    int mergeInterval = Integer.parseInt(args[1]);
                     plugin.getConfig().set("merge-interval-seconds", mergeInterval);
                     plugin.saveConfig();
                     player.sendMessage("Merge interval set to " + mergeInterval + " seconds");
@@ -71,8 +77,9 @@ public class Commands implements CommandExecutor {
                 break;
 
             case "set-instant-collect-radius":
+                if (args.length < 2) return false;
                 try {
-                    double instantCollectRadius = Double.parseDouble(value);
+                    double instantCollectRadius = Double.parseDouble(args[1]);
                     plugin.getConfig().set("instant-collect-radius", instantCollectRadius);
                     plugin.saveConfig();
                     player.sendMessage("Instant collect radius set to " + instantCollectRadius);
@@ -96,8 +103,9 @@ public class Commands implements CommandExecutor {
                 break;
 
             case "set-xp-boost-multiplier":
+                if (args.length < 2) return false;
                 try {
-                    double xpBoostMultiplier = Double.parseDouble(value);
+                    double xpBoostMultiplier = Double.parseDouble(args[1]);
                     plugin.getConfig().set("xp-boost-multiplier", xpBoostMultiplier);
                     plugin.saveConfig();
                     player.sendMessage("XP Boost multiplier set to " + xpBoostMultiplier);
@@ -136,5 +144,18 @@ public class Commands implements CommandExecutor {
         plugin.reloadConfig();
         player.sendMessage("Config has been reloaded.");
         return true;
+    }
+
+    private void showConfig(Player player) {
+        // Show current config values
+        player.sendMessage("§6Current Configuration:");
+        player.sendMessage("§7Merge Radius: §f" + plugin.getMergeRadius());
+        player.sendMessage("§7Min XP to Merge: §f" + plugin.getMinXpToMerge());
+        player.sendMessage("§7Merge Interval: §f" + plugin.getMergeInterval() + " seconds");
+        player.sendMessage("§7Instant Collect Radius: §f" + plugin.getInstantCollectRadius());
+        player.sendMessage("§7XP Boost Multiplier: §f" + plugin.getXpBoostMultiplier());
+        player.sendMessage("§7XP Boost Enabled: §f" + (plugin.isEnableXPBoost() ? "Enabled" : "Disabled"));
+        player.sendMessage("§7Merge Animations Enabled: §f" + (plugin.isEnableMergeAnimations() ? "Enabled" : "Disabled"));
+        player.sendMessage("§7Prevent Orb Duplication: §f" + (plugin.isPreventOrbDuplication() ? "Enabled" : "Disabled"));
     }
 }

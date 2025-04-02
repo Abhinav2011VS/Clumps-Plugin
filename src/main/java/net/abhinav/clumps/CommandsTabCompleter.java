@@ -23,12 +23,14 @@ public class CommandsTabCompleter implements TabCompleter {
         List<String> completions = new ArrayList<>();
 
         if (args.length == 1) {
-            // Add the possible option to the list (e.g., set-merge-radius, toggle-merging, etc.)
-            completions.addAll(Arrays.asList("set-merge-radius", "set-min-xp-to-merge", "set-merge-interval",
-                    "set-instant-collect-radius", "toggle-instant-collect",
-                    "toggle-merging", "set-xp-boost-multiplier",
-                    "toggle-xp-boost", "toggle-merge-animations",
-                    "toggle-orb-duplication"));
+            // Add the possible options to the list (e.g., set-merge-radius, toggle-merging, showconfig, etc.)
+            completions.addAll(Arrays.asList(
+                "set-merge-radius", "set-min-xp-to-merge", "set-merge-interval",
+                "set-instant-collect-radius", "toggle-instant-collect",
+                "toggle-merging", "set-xp-boost-multiplier",
+                "toggle-xp-boost", "toggle-merge-animations",
+                "toggle-orb-duplication", "showconfig"
+            ));
         } else if (args.length == 2) {
             // Depending on the first argument, provide value suggestions.
             String option = args[0].toLowerCase();
