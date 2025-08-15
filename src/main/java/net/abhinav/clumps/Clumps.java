@@ -2,6 +2,7 @@ package net.abhinav.clumps;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.ChatColor;
 
 public class Clumps extends JavaPlugin {
 
@@ -18,22 +19,18 @@ public class Clumps extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Load configuration and register events
         saveDefaultConfig();
         loadConfigValues();
 
-        // Register the command and tab completer
         getCommand("clumps").setExecutor(new Commands(this));
         getCommand("clumps").setTabCompleter(new CommandsTabCompleter(this));
 
-        // Register event listener for XP absorption if enabled
         if (enableInstantCollect) {
             new XPCollectionListener(this).register();
         }
 
-        // Schedule periodic merging task if enabled
         if (enableMerging) {
-            new MergeTask(this).runTaskTimer(this, 0, mergeInterval * 20L);
+            new MergeTask(this).runTaskTimerAsynchronously(this, 0, mergeInterval * 20L);
         }
     }
 
@@ -45,7 +42,7 @@ public class Clumps extends JavaPlugin {
         instantCollectRadius = config.getDouble("instant-collect-radius", 1.5);
         enableInstantCollect = config.getBoolean("enable-instant-collect", true);
         enableMerging = config.getBoolean("enable-merging", true);
-        xpBoostMultiplier = config.getDouble("xp-boost-multiplier", 1.1); // 10% bonus XP
+        xpBoostMultiplier = config.getDouble("xp-boost-multiplier", 1.1);
         enableXPBoost = config.getBoolean("enable-xp-boost", true);
         enableMergeAnimations = config.getBoolean("enable-merge-animations", true);
         preventOrbDuplication = config.getBoolean("prevent-orb-duplication", true);
@@ -85,6 +82,6 @@ public class Clumps extends JavaPlugin {
 
     @Override
     public void onDisable() {
-
+        // Clean up if needed
     }
 }

@@ -1,5 +1,5 @@
 name: Clumps
-version: '4.0'
+version: '4.5'
 main: net.abhinav.clumps.Clumps
 api-version: '1.21'
 load: STARTUP
@@ -16,10 +16,73 @@ commands:
         description: Show the current configuration settings
         usage: /clumps showconfig
         permission: clumps.admin
+      set-merge-radius:
+        description: Set the merge radius for XP orbs
+        usage: /clumps set-merge-radius <value>
+        permission: clumps.set-radius
+      set-min-xp-to-merge:
+        description: Set the minimum XP required to merge XP orbs
+        usage: /clumps set-min-xp-to-merge <value>
+        permission: clumps.set-min-xp
+      set-merge-interval:
+        description: Set the interval between orb merge attempts
+        usage: /clumps set-merge-interval <value>
+        permission: clumps.set-interval
+      toggle-merging:
+        description: Toggle the merging of XP orbs
+        usage: /clumps toggle-merging
+        permission: clumps.toggle-merging
+      toggle-instant-collect:
+        description: Toggle the instant collection of XP orbs
+        usage: /clumps toggle-instant-collect
+        permission: clumps.toggle-collect
+      set-xp-boost-multiplier:
+        description: Set the XP boost multiplier
+        usage: /clumps set-xp-boost-multiplier <value>
+        permission: clumps.set-xp-boost
+      toggle-xp-boost:
+        description: Toggle XP boost
+        usage: /clumps toggle-xp-boost
+        permission: clumps.toggle-xp-boost
+      toggle-merge-animations:
+        description: Toggle merge animations for XP orbs
+        usage: /clumps toggle-merge-animations
+        permission: clumps.toggle-animations
+      toggle-orb-duplication:
+        description: Toggle orb duplication prevention
+        usage: /clumps toggle-orb-duplication
+        permission: clumps.toggle-duplication
 permissions:
   clumps.use:
     description: Allows access to modify the Clumps plugin settings
     default: op
   clumps.admin:
     description: Allows full access to modify Clumps plugin settings and show the config
+    default: op
+  clumps.set-radius:
+    description: Allows setting the merge radius
+    default: op
+  clumps.set-min-xp:
+    description: Allows setting the minimum XP required to merge XP orbs
+    default: op
+  clumps.set-interval:
+    description: Allows setting the interval between orb merge attempts
+    default: op
+  clumps.toggle-merging:
+    description: Allows toggling XP orb merging
+    default: op
+  clumps.toggle-collect:
+    description: Allows toggling the instant collection of XP orbs
+    default: op
+  clumps.set-xp-boost:
+    description: Allows setting the XP boost multiplier
+    default: op
+  clumps.toggle-xp-boost:
+    description: Allows toggling XP boost
+    default: op
+  clumps.toggle-animations:
+    description: Allows toggling merge animations
+    default: op
+  clumps.toggle-duplication:
+    description: Allows toggling orb duplication prevention
     default: op

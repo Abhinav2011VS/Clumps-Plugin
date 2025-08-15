@@ -1,12 +1,11 @@
-package net.abhinav.clumps;
+package net.abhinav.clumps.listeners;
 
-import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerExpChangeEvent;
+import org.bukkit.ChatColor;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,30 +18,23 @@ public class XPCollectionListener implements Listener {
         this.plugin = plugin;
     }
 
-    public void register() {
-        plugin.getServer().getPluginManager().registerEvents(this, plugin);
-    }
-
     @EventHandler
     public void onPlayerNearbyXPCollect(PlayerExpChangeEvent event) {
         Player player = event.getPlayer();
-        World world = player.getWorld();
-        Location playerLocation = player.getLocation();
-        double instantCollectRadius = plugin.getInstantCollectRadius();
+        double radius = plugin.getInstantCollectRadius();
 
-        // Only collect XP if radius is set to something greater than zero
-        if (instantCollectRadius <= 0) return;
+        // Skip if no collection radius is set
+        if (radius <= 0) return;
 
-        // Find nearby orbs and collect their XP
-        List<ExperienceOrb> nearbyOrbs = world.getNearbyEntities(playerLocation, instantCollectRadius, instantCollectRadius, instantCollectRadius)
+        List<ExperienceOrb> orbs = player.getWorld().getEntitiesByClass(ExperienceOrb.class)
                 .stream()
-                .filter(entity -> entity instanceof ExperienceOrb)
-                .map(entity -> (ExperienceOrb) entity)
+                .filter(orb -> orb.getLocation().distance(player.getLocation()) <= radius)
                 .collect(Collectors.toList());
 
-        for (ExperienceOrb orb : nearbyOrbs) {
-            player.giveExp(orb.getExperience());  // Give player XP from the orb
-            orb.remove();  // Remove orb after collection
+        for (ExperienceOrb orb : orbs) {
+            player.giveExp(orb.getExperience());
+            orb.remove();
+            player.sendMessage(ChatColor.GREEN + "XP collected from an orb nearby!");
         }
     }
 }
