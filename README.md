@@ -1,6 +1,6 @@
 # Clumps
 
-A plugin that merges XP orbs and instantly absorbs them when players are nearby to reduce lag. Similar to Clumps mod.","body":"# Clumps
+A plugin that merges XP orbs and instantly absorbs them when players are nearby to reduce lag. Similar to Clumps mod.
 
 ![Modrinth Version](https://img.shields.io/modrinth/v/IahtO7tM?style=for-the-badge&label=Latest%20Version)
 
