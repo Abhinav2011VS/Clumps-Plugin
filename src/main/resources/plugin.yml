@@ -5,6 +5,7 @@ api-version: '1.21'
 load: STARTUP
 description: A plugin that merges XP orbs and instantly absorbs them when players are nearby to reduce lag.
 authors: [ Abhinav VS ]
+folia-supported: true
 commands:
   clumps:
     description: Modify Clumps plugin settings

@@ -33,7 +33,7 @@ public class Clumps extends JavaPlugin {
 
         // Schedule periodic merging task if enabled
         if (enableMerging) {
-            new MergeTask(this).runTaskTimer(this, 0, mergeInterval * 20L);
+            FoliaUtils.scheduleMergeTask(this, new MergeTask(this), mergeInterval);
         }
     }
 
