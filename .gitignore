@@ -1,4 +1,7 @@
 # Project exclude paths
-/.idea/
-/.gradle/
-/build/
+.idea
+.gradle
+build
+bin
+.DS_Store
+.vscode
